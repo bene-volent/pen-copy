@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codepen copy</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.0/ace.js" integrity="sha512-VBSPPzA3vXv9TFRJtm9ZR4YAJM59ihY4K8+b4LtJenbKk7OfwbAR0v40IJICmfSA6t3caE49CYz9q7mkk/2YPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.0/ext-emmet.min.js" integrity="sha512-bsLLbFnnbjDUWKA6adr3cO61B93PyVG65rDNJSIEKkBFj45PqtUEMCq56+ofI6tir1m4FDOFVSPIE9nzhMOmCQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cloud9ide.github.io/emmet-core/emmet.js"></script>
+</head>
+
+<body>
+    <header>
+
+        <div class="container">
+            <div class="logo">
+                <h1>Bene's Code Editor</h1>
+                <span class="file-name" data-name="100"></span>
+            </div>
+            <div class="options">
+                <button type="button" data-func="run" onclick="
+                    "><i class="fa-solid fa-play" style="color:lime"></i> Run</button>
+                <button type="button" data-func="save" onclick="">Save</button>
+                <button type="button" data-func="open" onclick="">Open</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="editors">
+                <div class="editor-group">
+                    <span><i class="fa-brands fa-html5"></i> HTML</span>
+                    <pre id="editor1" class="editor" data-type="HTML"></pre>
+                </div>
+                <div class="editor-group">
+                    <span><i class="fa-brands fa-css3-alt"></i> CSS</span>
+                    <pre id="editor2" class="editor" data-type="CSS"></pre>
+                </div>
+                <div class="editor-group">
+                    <span><i class="fa-brands fa-js"></i> Javascript</span>
+                    <pre id="editor3" class="editor" data-type="JS"></pre>
+                </div>
+            </section>
+            <section class="output">
+                <iframe id="output"></iframe>
+            </section>
+        </div>
+    </main>
+    <script type="module" src="index.js"></script>
+    <script>
+        
+const htmlEditor = document.querySelector(".editor[data-type='HTML']")
+const cssEditor = document.querySelector(".editor[data-type='CSS']")
+const jsEditor = document.querySelector(".editor[data-type='JS']")
+
+const outputFrame = document.querySelector("#output")
+document.querySelector("[data-func='run']").addEventListener("click",run)
+document.querySelector("[data-func='save']")
+document.querySelector("[data-func='open']")
+
+const options  = {
+    
+    enableBasicAutocompletion: true,
+    enableSnippets: true,
+    enableLiveAutocompletion: false,
+    enableEmmet:true,   
+    setTheme:"ace/theme/monokai",
+};
+
+
+const html = ace.edit(htmlEditor)
+html.getSession().setMode("ace/mode/html")
+html.setOptions(options)
+
+
+const css = ace.edit(cssEditor)
+css.getSession().setMode("ace/mode/css")
+css.setOptions(options)
+
+const js = ace.edit(jsEditor)
+js.getSession().setMode("ace/mode/javascript")
+js.setOptions(options)
+
+
+function run(){
+    console.log(html.getValue())
+    console.log(css.getValue())
+    console.log(js.getValue())
+
+    outputFrame.contentDocument.body.innerHTML = html.getValue() + "<style>" + css.getValue() + "</style>"
+    outputFrame.contentWindow.eval(js.getValue())
+}
+    </script>
+</body>
+
+
+</html>
