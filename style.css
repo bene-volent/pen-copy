@@ -108,13 +108,9 @@ main .container .editors{
 main .container .editor-group{
   flex: 1 1 auto;
 }
-main .container .editor{
-      transition: height 250ms ease-in-out;
-    }
-
-    main .container .editor:focus-within{
-      height:60vh;
-    }
+main .container .editor-group:focus-within{
+  flex-basis:60vh;
+}
 .editor-group{
     display: grid;
     grid-template-rows: auto 1fr;
