@@ -106,7 +106,6 @@ main .container .editors{
     resize:horizontal;
 }
 main .container .editor-group{
-  flex: 1 1 auto;
   transition: flex-basis 250ms ease-in-out;
 }
 main .container .editor-group:focus-within{
