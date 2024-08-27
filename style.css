@@ -150,10 +150,10 @@ main .container .editor-group:focus-within{
       height: 60vh;
     }
   main .container .editor-group:{
-  flex-basis:4lh;
+  flex-basis:10vh;
   }
     
     main .container .editor-group:focus-within{
-  flex-basis:15lh;
+  flex-basis:40vh;
 }
 }
