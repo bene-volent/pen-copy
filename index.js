@@ -1,4 +1,4 @@
-.
+
 // Element Query Selectors
 const htmlEditorElement = document.querySelector(".editor[data-type='HTML']");
 const cssEditorElement = document.querySelector(".editor[data-type='CSS']");
