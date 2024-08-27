@@ -89,6 +89,31 @@ const js = ace.edit(jsEditor)
 js.getSession().setMode("ace/mode/javascript")
 js.setOptions(options)
 
+        
+function downloadHtmlFile(htmlContent) {
+            // Create a Blob with the HTML content
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+
+            // Create a URL for the Blob
+            const url = URL.createObjectURL(blob);
+
+            // Create a hidden link
+            const link = document.createElement('a');
+            link.href = url;
+            const filename = prompt('Enter the filename for the HTML file with extension:', 'index.html');
+
+    
+            link.download = filename;
+            link.style.position = 'absolute';
+            link.style.left = '-9999px';
+            link.style.top = '-9999px';
+            document.body.appendChild(link);
+            link.click();
+
+            // Clean up
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
 
 function run(){
 
@@ -103,6 +128,17 @@ function run(){
                 
                 // Execute your custom function
                 run();
+            }
+
+            if (event.ctrlKey && event.key === 's') {
+                // Prevent the default action (which is refresh)
+                event.preventDefault();
+                
+                // Execute your custom function
+                /*
+                html.getValue() + "<style>" + css.getValue() + "</style>"
+                */
+               // downloadHtmlFile();
             }
         });
     </script>
