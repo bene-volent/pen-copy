@@ -8,16 +8,13 @@
 *::after {
   box-sizing: border-box;
 }
-
 * {
   margin: 0;
 }
-
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
-
 img,
 picture,
 video,
@@ -26,14 +23,12 @@ svg {
   display: block;
   max-width: 100%;
 }
-
 input,
 button,
 textarea,
 select {
   font: inherit;
 }
-
 p,
 h1,
 h2,
@@ -43,116 +38,241 @@ h5,
 h6 {
   overflow-wrap: break-word;
 }
-
 #root,
 #__next {
   isolation: isolate;
 }
-
 .container {
-    width: min(100% - 4rem, 1280px);
-    margin-inline: auto;
-  }
-
-body{
-    background: #060A0F;
-    font-family: "Roboto", sans-serif,system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color:#eeeeee;
-
-    min-height: 100dvh;
-
-    display: grid;
-    grid-template-rows: auto 1fr;
+  width: min(100% - 4rem, 1280px);
+  margin-inline: auto;
+}
+body {
+  background: #060a0f;
+  font-family:
+    "Roboto",
+    sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  color: #eeeeee;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 1rem;
+}
+header .options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  max-width: 50vw;
 }
 
-header .container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-block: 1rem;
+header .options button {
+  padding: 0.5rem 2rem;
+  background-color: #444857;
+  border: none;
+  border-radius: 0.4rem;
+  color: inherit;
+  cursor: pointer;
+  flex-grow: 1;
 }
-header .options{
-    display: flex;
-    gap: 1rem;
+header {
+  border-bottom: 1px solid #aaaaaa;
+  margin-bottom: 1rem;
 }
-header .options  button{
-    padding:0.5rem 2rem;
-    background-color: #444857;
-    border:none;
-    border-radius: 0.4rem;
-    color:inherit;
-
-    cursor: pointer;
+main .container {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 2rem;
+  height: 95%;
+  /* padding-block: 1fr; */
 }
-
-
-header{
-    border-bottom: 1px solid #aaaaaa;
-    margin-bottom:1rem;
-}
-
-main .container{
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 2rem;
-    height: 95%;
-    /* padding-block: 1fr; */
-}
-
-main .container .editors{
-    display: flex;
+main .container .editors {
+  display: flex;
   flex-direction: column;
-    gap: 1rem;
-    resize:horizontal;
+  gap: 1rem;
+  resize: horizontal;
 }
-main .container .editor-group{
+main .container .editor-group {
+  flex: 1 1 0;
   transition: flex-basis 250ms ease-in-out;
 }
-main .container .editor-group:focus-within{
-  flex-basis:60vh;
+main .container .editor-group:focus-within {
+  flex-basis: 50vh;
 }
-.editor-group{
-    display: grid;
-    grid-template-rows: auto 1fr;
+.editor-group {
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 #output {
-    background-color: #fff;
-    margin-top: 1rem;
-    height: 100%;
-    width: 100%
+  background-color: #fff;
+  margin-top: 1rem;
+  height: 100%;
+  width: 100%;
 }
-
 .editor-group {
-    display: grid;
-    grid-template-rows: auto 1fr
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+@media (width < 850px) {
+  body {
+    font-size: 13px;
+  }
+  header .options {
+    max-width: none;
+  }
+  header button {
+    padding: 0.25rem 0.8rem;
+  }
+  header .options button[data-func="show-shortcuts"] {
+    display: none;
+  }
+  header .container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  main .container {
+    grid-template-columns: none;
+    grid-template-rows: auto auto;
+  }
+  main .container .output {
+    grid-row: 1 / 2;
+  }
+  #output {
+    height: 60vh;
+  }
+  main .container .editor-group {
+    flex-basis: 5lh;
+  }
+
+  main .container .editor-group:focus-within {
+    flex-basis: 15lh;
+  }
 }
 
-@media (width < 800px) {
-  body{
-    font-size:12px;
-  }
-  header button{
-    padding:0.25rem 0.8rem;
-  }
-    header .container{
-        flex-direction: column;
-        gap: 1rem;
-    }
-    main .container{
-        grid-template-columns: none;
-        grid-template-rows: auto auto;
-    }
-    main .container .output{
-        grid-row: 1 / 2;
-    }
-    #output{
-      height: 60vh;
-    }
-  main .container .editor-group:{
-  flex-basis:10vh;
-  }
-    
-    main .container .editor-group:focus-within{
-  flex-basis:40vh;
+/* Modal styles */
+/* Modal styles */
+dialog {
+  border: none;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: #444857;
+  color: #eeeeee;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
 }
+
+.modal-content {
+  position: relative;
+}
+
+.modal-content header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 1rem;
+  transition:translate 0.3s;
+}
+
+.close:hover,
+.close:focus-visible {
+  color: #ffffff;
+  translate: 0 -2px;
+  text-decoration: none;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content button {
+  padding: 0.5rem 2rem;
+  background-color: #444857;
+  border: 1px solid white;
+  border-radius: 0.4rem;
+  color: inherit;
+  cursor: pointer;
+
+}
+.modal-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.modal-content ul li {
+  margin: 10px 0;
+}
+
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  color: #eeeeee;
+  text-align: center;
+  border-radius: 0.4rem;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 30px;
+  font-size: 17px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.toast.show {
+  visibility: visible;
+  animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
+}
+
+.success-toast,
+.info-toast {
+  background-color: #4caf50; /* Green */
+}
+
+.error-toast {
+  background-color: #f44336; /* Red */
+}
+
+.warning-toast {
+  background-color: #ff9800; /* Orange */
+}
+
+@keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    top: 30px;
+    opacity: 1;
+  }
+  to {
+    top: 0;
+    opacity: 0;
+  }
 }
