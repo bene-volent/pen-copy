@@ -1,4 +1,4 @@
-
+.
 // Element Query Selectors
 const htmlEditorElement = document.querySelector(".editor[data-type='HTML']");
 const cssEditorElement = document.querySelector(".editor[data-type='CSS']");
@@ -167,7 +167,11 @@ function handleKeyboardShortcuts(event) {
 	}
 }
 
-
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    saveToLocalStorage();
+  }
+});
 
 // Event Listeners
 
