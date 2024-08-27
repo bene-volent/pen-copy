@@ -26,9 +26,10 @@
             </div>
             <div class="options">
                 <button type="button" data-func="run" onclick="
-                    "><i class="fa-solid fa-play" style="color:lime"></i> Run</button>
-                <button type="button" data-func="save" onclick="">Save</button>
-                <button type="button" data-func="open" onclick="">Open</button>
+                    "><i class="fa-solid fa-play" style="color:lime"></i> <span>Ctrl + r</span> / Run</button>
+                
+<!--                 <button type="button" data-func="save" onclick="">Save</button>
+                <button type="button" data-func="open" onclick="">Open</button> -->
             </div>
         </div>
     </header>
@@ -90,13 +91,20 @@ js.setOptions(options)
 
 
 function run(){
-    console.log(html.getValue())
-    console.log(css.getValue())
-    console.log(js.getValue())
 
     outputFrame.contentDocument.body.innerHTML = html.getValue() + "<style>" + css.getValue() + "</style>"
     outputFrame.contentWindow.eval(js.getValue())
 }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'r') {
+                // Prevent the default action (which is refresh)
+                event.preventDefault();
+                
+                // Execute your custom function
+                run();
+            }
+        });
     </script>
 </body>
 
