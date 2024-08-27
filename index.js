@@ -112,8 +112,6 @@ function saveToLocalStorage() {
 		js: js.getValue(),
 	};
 
-	console.log(jsonContent)
-
 	localStorage.setItem("codepen-bene", JSON.stringify(jsonContent));
 	showToast("Content saved successfully", "success");
 }
@@ -141,7 +139,6 @@ function showShortcutsModal() {
 }
 
 function closeShortcutsModal() {
-	console.log("Closing modal");
 	document.getElementById("shortcuts-modal").close();
 }
 
@@ -155,7 +152,6 @@ function closeModalOnClickOutside(event) {
 
 // Handle keyboard shortcuts for saving and running the code
 function handleKeyboardShortcuts(event) {
-	console.log(event.key)
 	if (event.ctrlKey && event.key === "s") {
 		event.preventDefault();
 		saveToLocalStorage();
