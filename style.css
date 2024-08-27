@@ -98,7 +98,6 @@ main .container {
   grid-template-columns: auto auto;
   gap: 2rem;
   height: 95%;
-  /* padding-block: 1fr; */
 }
 main .container .editors {
   display: flex;
@@ -107,14 +106,15 @@ main .container .editors {
   resize: horizontal;
 }
 
-
-.ace_editor{
-
-  font-size:14px;
+.ace_editor {
+  font-size: 14px;
 }
 main .container .editor-group {
   flex: 1 1 0;
   transition: flex-basis 250ms ease-in-out;
+  border: 1px solid #aaaaaa;
+  border-radius: 0.4rem;
+  overflow: hidden;
 }
 main .container .editor-group:focus-within {
   flex-basis: 50vh;
@@ -123,22 +123,24 @@ main .container .editor-group:focus-within {
   display: grid;
   grid-template-rows: auto 1fr;
 }
+
+.editor-group > span{
+  padding: 0.2rem 0.4rem;
+}
 #output {
   background-color: #fff;
   margin-top: 1rem;
   height: 100%;
   width: 100%;
-}
-.editor-group {
-  display: grid;
-  grid-template-rows: auto 1fr;
+  border: 1px solid #aaaaaa;
+  border-radius: 0.4rem;
 }
 @media (width < 850px) {
   :root {
     font-size: 13px;
   }
-  .ace_editor{
-    font-size:12px;
+  .ace_editor {
+    font-size: 12px;
   }
   header .options {
     max-width: none;
@@ -173,7 +175,6 @@ main .container .editor-group:focus-within {
 }
 
 /* Modal styles */
-/* Modal styles */
 dialog {
   border: none;
   border-radius: 0.4rem;
@@ -190,13 +191,12 @@ dialog {
   position: relative;
 }
 
-.modal-content header{
+.modal-content header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding-bottom: 1rem;
-  transition:translate 0.3s;
+  transition: translate 0.3s;
 }
 
 .close:hover,
@@ -217,7 +217,6 @@ dialog {
   border-radius: 0.4rem;
   color: inherit;
   cursor: pointer;
-
 }
 .modal-content ul {
   list-style-type: none;
@@ -283,5 +282,54 @@ dialog {
   to {
     top: 0;
     opacity: 0;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #909090;
+    --text-primary: #333333;
+    --text-secondary: hsl(0, 0%, 40%);
+    --accent-primary: #437da4;
+    --accent-secondary: #2980b9;
+    --button-hover: #2574a9;
+  }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  header {
+    border-bottom: 1px solid var(--bg-secondary);
+  }
+
+  header .options button {
+    background-color: var(--accent-primary);
+    color: white;
+  }
+
+  header .options button:hover {
+    background-color: var(--button-hover);
+  }
+
+  dialog {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+
+  dialog .modal-content button {
+    background-color: var(--accent-primary);
+    color: white;
+  }
+  .toast.info-toast {
+    background-color: var(--accent-secondary);
+    color: white;
+  }
+
+  .editor,
+  #output {
+    border: 1px solid var(--bg-secondary);
   }
 }
