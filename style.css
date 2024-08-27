@@ -106,6 +106,12 @@ main .container .editors {
   gap: 1rem;
   resize: horizontal;
 }
+
+
+.ace_editor{
+
+  font-size:14px;
+}
 main .container .editor-group {
   flex: 1 1 0;
   transition: flex-basis 250ms ease-in-out;
@@ -128,8 +134,11 @@ main .container .editor-group:focus-within {
   grid-template-rows: auto 1fr;
 }
 @media (width < 850px) {
-  body {
+  :root {
     font-size: 13px;
+  }
+  .ace_editor{
+    font-size:12px;
   }
   header .options {
     max-width: none;
