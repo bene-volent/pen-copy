@@ -107,6 +107,7 @@ main .container .editors{
 }
 main .container .editor-group{
   flex: 1 1 auto;
+  transition: flex-basis 250ms ease-in-out;
 }
 main .container .editor-group:focus-within{
   flex-basis:60vh;
@@ -148,10 +149,11 @@ main .container .editor-group:focus-within{
     #output{
       height: 60vh;
     }
-    main .container .editor{
-      height:4lh;
-    }
-    main .container .editor:focus-within{
-      height: 10lh;
-    }
+  main .container .editor-group:{
+  flex-basis:4lh;
+  }
+    
+    main .container .editor-group:focus-within{
+  flex-basis:15lh;
+}
 }
