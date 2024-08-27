@@ -119,7 +119,17 @@ main .container .editor{
     display: grid;
     grid-template-rows: auto 1fr;
 }
+#output {
+    background-color: #fff;
+    margin-top: 1rem;
+    height: 100%;
+    width: 100%
+}
 
+.editor-group {
+    display: grid;
+    grid-template-rows: auto 1fr
+}
 
 @media (width < 800px) {
   body{
