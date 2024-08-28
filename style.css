@@ -275,7 +275,6 @@ dialog {
 .toast {
   visibility: hidden;
   min-width: 250px;
-  margin-left: -125px;
   color: #eeeeee;
   text-align: center;
   border-radius: 0.4rem;
@@ -283,6 +282,7 @@ dialog {
   position: fixed;
   z-index: 1;
   left: 50%;
+  translate: -50% 0;
   top: 30px;
   font-size: 17px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

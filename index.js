@@ -82,8 +82,15 @@ function run() {
 	// add content to head of iframe
 
 
-	outputFrame.contentDocument.head.innerHTML = `<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />` + headContent + `<style>${css.getValue()}</style>`;
+	outputFrame.contentDocument.head.innerHTML = `
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		${headContent}
+		<style>${css.getValue()}</style>
+	`;
+
 	outputFrame.contentDocument.body.innerHTML = `${html.getValue()}`;
+
 	outputFrame.contentWindow.eval(js.getValue());
 }
 
@@ -138,6 +145,9 @@ function submitOptions(event) {
 	headContent = document.getElementById('stuff-for-head').value
 
 	closeModal('options-modal')
+	showToast("Running the code...", "info");
+
+	run()
 
 }
 
@@ -194,6 +204,7 @@ function handleKeyboardShortcuts(event) {
 	if (event.ctrlKey && event.key === "r") {
 		event.preventDefault();
 		showToast("Running the code...", "info");
+
 		run();
 	}
 	if (event.ctrlKey && event.shiftKey && event.key === "S") {
@@ -224,7 +235,7 @@ document.addEventListener('visibilitychange', () => {
 // Event Listeners
 
 // Button Event Listeners
-document.querySelector("[data-func='run']").addEventListener("click", run);
+document.querySelector("[data-func='run']").addEventListener("click", () => { run(); showToast("Running the code...", "info"); });
 document.querySelector("[data-func='save']").addEventListener("click", saveToLocalStorage);
 document.querySelector("[data-func='download']").addEventListener("click", downloadHtmlFile);
 document.querySelector("[data-func='show-shortcuts']").addEventListener("click", () => showModal("shortcuts-modal"));
