@@ -67,12 +67,25 @@ body {
   display: grid;
   grid-template-rows: auto 1fr;
 }
-header .container {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-block: 1rem;
+  padding-block: 0.85rem;
+  padding-inline: 2rem ;
 }
+.logo{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-image{
+  width: 50px;
+  height: 50px;
+  border-radius: 1rem;
+}
+
 header .options {
   display: flex;
   gap: 1rem;
@@ -81,7 +94,7 @@ header .options {
 }
 
 header .options button {
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1rem;
   background-color: #444857;
   border: none;
   border-radius: 0.4rem;
@@ -139,12 +152,16 @@ main .container .editor-group:focus-within {
   :root {
     font-size: 13px;
   }
+  .md-only{
+    display: none;
+  }
   .ace_editor {
     font-size: 12px;
   }
   header .options {
     max-width: none;
   }
+  
   header button {
     padding: 0.25rem 0.8rem;
   }
@@ -172,6 +189,14 @@ main .container .editor-group:focus-within {
   main .container .editor-group:focus-within {
     flex-basis: 15lh;
   }
+}
+
+
+@media (width < 650px) {
+  h1{
+    display: none;
+  }
+  
 }
 
 /* Modal styles */
@@ -227,6 +252,26 @@ dialog {
   margin: 10px 0;
 }
 
+.modal-content form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal-content form .form-item{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.modal-content form textarea{
+  resize: vertical;
+  min-height: 100px;
+  width: 100%;  
+  max-height: 50vh;
+}
+.modal-content form button{
+  align-self: flex-end;
+}
 .toast {
   visibility: hidden;
   min-width: 250px;

@@ -1,3 +1,8 @@
+const MAX_VISIT_THRESHOLD = 5;
+let pageCount = 0
+let headContent = ''
+let theme = 'monokai'
+let html, css, js
 
 // Element Query Selectors
 const htmlEditorElement = document.querySelector(".editor[data-type='HTML']");
@@ -6,28 +11,30 @@ const jsEditorElement = document.querySelector(".editor[data-type='JS']");
 const outputFrame = document.querySelector("#output");
 
 
+function initializeEditors() {
 
-// Options to initialize the Ace Editor
-const options = {
-	enableBasicAutocompletion: true,
-	enableSnippets: true,
-	enableLiveAutocompletion: false,
-	enableEmmet: true,
-	setTheme: "ace/theme/monokai",
-};
+	// Options to initialize the Ace Editor
+	const options = {
+		enableBasicAutocompletion: true,
+		enableSnippets: true,
+		enableLiveAutocompletion: false,
+		enableEmmet: true,
+		setTheme: `ace/theme/${theme}`,
+	};
 
-// Initialize the Ace Editor
-const html = ace.edit(htmlEditorElement);
-html.getSession().setMode("ace/mode/html");
-html.setOptions(options);
+	// Initialize the Ace Editor
+	html = ace.edit(htmlEditorElement);
+	html.getSession().setMode("ace/mode/html");
+	html.setOptions(options);
 
-const css = ace.edit(cssEditorElement);
-css.getSession().setMode("ace/mode/css");
-css.setOptions(options);
+	css = ace.edit(cssEditorElement);
+	css.getSession().setMode("ace/mode/css");
+	css.setOptions(options);
 
-const js = ace.edit(jsEditorElement);
-js.getSession().setMode("ace/mode/javascript");
-js.setOptions(options);
+	js = ace.edit(jsEditorElement);
+	js.getSession().setMode("ace/mode/javascript");
+	js.setOptions(options);
+}
 
 
 // Functions
@@ -42,8 +49,12 @@ function downloadHtmlFile() {
 
 	const title = prompt("Enter the title of the HTML file:", "Web Playground") || "Web Playground";
 	const content = `
+		<!DOCTYPE html>
 		  <html>
 			<head>
+			    <meta charset="UTF-8" />
+    			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				${headContent}
 			  <title>${title}</title>
 			  <style>${css.getValue()}</style>
 			</head>
@@ -68,7 +79,11 @@ function downloadHtmlFile() {
 
 // Run the code in the output frame
 function run() {
-	outputFrame.contentDocument.body.innerHTML = `${html.getValue()}<style>${css.getValue()}</style>`;
+	// add content to head of iframe
+
+
+	outputFrame.contentDocument.head.innerHTML = `<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />` + headContent + `<style>${css.getValue()}</style>`;
+	outputFrame.contentDocument.body.innerHTML = `${html.getValue()}`;
 	outputFrame.contentWindow.eval(js.getValue());
 }
 
@@ -108,6 +123,7 @@ function showToast(message, type = "success") {
 function saveToLocalStorage() {
 	const jsonContent = {
 		html: html.getValue(),
+		head: headContent,
 		css: css.getValue(),
 		js: js.getValue(),
 	};
@@ -116,16 +132,26 @@ function saveToLocalStorage() {
 	showToast("Content saved successfully", "success");
 }
 
+function submitOptions(event) {
+	event.preventDefault();
+
+	headContent = document.getElementById('stuff-for-head').value
+
+	closeModal('options-modal')
+
+}
 
 // Loads the content from the local storage on page load
 function loadFromLocalStorage() {
 	const content = localStorage.getItem("codepen-bene");
 	if (content) {
 		const jsonContent = JSON.parse(content);
-		if (jsonContent.html || jsonContent.css || jsonContent.js) {
+		if (jsonContent.html || jsonContent.css || jsonContent.js || jsonContent.head) {
 			html.setValue(jsonContent.html);
 			css.setValue(jsonContent.css);
 			js.setValue(jsonContent.js);
+			headContent = jsonContent.head
+			document.getElementById('stuff-for-head').value = headContent
 			showToast("Content loaded from previous save...");
 			run();
 			return;
@@ -134,20 +160,23 @@ function loadFromLocalStorage() {
 	showToast("No previous save found...", "warning");
 }
 
-function showShortcutsModal() {
-	document.getElementById("shortcuts-modal").showModal();
+function showModal(id) {
+	document.getElementById(id).showModal();
 }
 
-function closeShortcutsModal() {
-	document.getElementById("shortcuts-modal").close();
+function closeModal(id) {
+	document.getElementById(id).close();
+
 }
 
 function closeModalOnClickOutside(event) {
-	const modal = document.getElementById("shortcuts-modal");
+	const modal = document.querySelector("dialog[open]");
 	if (event.target == modal) {
 		modal.close();
 	}
 }
+
+
 
 
 // Handle keyboard shortcuts for saving and running the code
@@ -168,6 +197,19 @@ function handleKeyboardShortcuts(event) {
 }
 
 
+// Function to check and update visit count
+function checkVisitCount() {
+	const visitCount = localStorage.getItem("codepen-bene_visit-count") || 0;
+	const newVisitCount = parseInt(visitCount) + 1;
+	localStorage.setItem("codepen-bene_visit-count", newVisitCount);
+
+	if (newVisitCount > MAX_VISIT_THRESHOLD) {
+		document.querySelector('button[data-func="show-shortcuts"]').style.display = "none";
+	}
+}
+
+
+
 
 // Event Listeners
 
@@ -175,11 +217,19 @@ function handleKeyboardShortcuts(event) {
 document.querySelector("[data-func='run']").addEventListener("click", run);
 document.querySelector("[data-func='save']").addEventListener("click", saveToLocalStorage);
 document.querySelector("[data-func='download']").addEventListener("click", downloadHtmlFile);
-document.querySelector("[data-func='show-shortcuts']").addEventListener("click", showShortcutsModal);
-document.querySelector("[data-func='close-shortcuts']").addEventListener("click", closeShortcutsModal);
-
+document.querySelector("[data-func='show-shortcuts']").addEventListener("click", () => showModal("shortcuts-modal"));
+document.querySelector("[data-func='close-shortcuts']").addEventListener("click", () => closeModal("shortcuts-modal"));
+document.querySelector("[data-func='options']").addEventListener("click", () => showModal("options-modal"));
+document.querySelector("#options-modal .close").addEventListener("click", () => closeModal("options-modal"));
+document.querySelector('#options-modal form').addEventListener("submit", submitOptions)
 
 // Other Event Listeners
 document.addEventListener("keydown", handleKeyboardShortcuts);
-document.addEventListener("DOMContentLoaded", loadFromLocalStorage);
+// Call the function on page load
+document.addEventListener("DOMContentLoaded", () => {
+	checkVisitCount();
+	initializeEditors();
+	loadFromLocalStorage()
+}
+);
 window.addEventListener("click", closeModalOnClickOutside);

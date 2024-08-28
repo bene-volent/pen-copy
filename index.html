@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Playground : HTML, CSS, JS</title>
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,29 +41,35 @@
   </head>
 
   <body>
-    <header>
-      <div class="container">
-        <div class="logo">
-          <h1>Web Playground</h1>
-          <span class="file-name" data-name="100"></span>
-        </div>
-        <div class="options">
-          <button type="button" data-func="run" onclick="">
-            <i class="fa-solid fa-play" style="color: lime"></i>
-            Run
-          </button>
-          <button type="button" data-func="save" onclick="">
-            <i class="fa-solid fa-save" style="color: dodgerblue"></i>
-            Save
-          </button>
-          <button type="button" data-func="download" onclick="">
-            <i class="fa-solid fa-download" style="color: orange"></i>
-            Download as html
-          </button>
-          <button type="button" data-func="show-shortcuts" onclick="">
-            Show Keyboard Shortcuts
-          </button>
-        </div>
+    <header class="header">
+      <div class="logo">
+        <img src="/favicon.webp" alt="Logo" class="logo-image">
+        <h1>Web Playground</h1>
+      </div>
+      <div class="options">
+        <button type="button" data-func="options">
+          <i class="fa-solid fa-gear"></i>
+          <span class="md-only">Options</span>
+        </button>
+        <button type="button" data-func="run" onclick="">
+          <i class="fa-solid fa-play" style="color: lime"></i>
+          <span class="md-only">Run</span>
+        </button>
+        <button type="button" data-func="save" onclick="">
+          <i class="fa-solid fa-save" style="color: dodgerblue"></i>
+          <span class="md-only">Save</span>
+        </button>
+        <button type="button" data-func="download" onclick="">
+          <i class="fa-solid fa-download" style="color: orange"></i>
+        </button>
+        <button
+          type="button"
+          class="md-only"
+          data-func="show-shortcuts"
+          onclick=""
+        >
+          Show Keyboard Shortcuts
+        </button>
       </div>
     </header>
     <main>
@@ -104,6 +111,26 @@
           <li><strong>Ctrl + S:</strong> Save</li>
           <li><strong>Ctrl + Shift + S:</strong> Download as HTML</li>
         </ul>
+      </div>
+    </dialog>
+
+    <dialog id="options-modal">
+      <div class="modal-content">
+        <header>
+          <h2>Options</h2>
+          <button class="close">&times;</button>
+        </header>
+        <div class="modal-options">
+          <form>
+
+            <div class="form-item">
+              <label for="stuff-for-head">Stuff for head</label>
+              <textarea name="stuff_for_head" id="stuff-for-head"></textarea>
+            </div>
+            <div class="form-item">
+              <button type="submit">Save</button>
+          </form>
+        </div>
       </div>
     </dialog>
 
