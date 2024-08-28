@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Random Files
+combine-to-single-file.py
+single_file.txt
