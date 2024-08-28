@@ -169,6 +169,12 @@ function closeModal(id) {
 
 }
 
+document.addEventListener('visibilitychange', () => {
+	if (document.visibilityState === 'hidden') {
+		saveToLocalStorage();
+	}
+});
+
 function closeModalOnClickOutside(event) {
 	const modal = document.querySelector("dialog[open]");
 	if (event.target == modal) {
@@ -209,7 +215,11 @@ function checkVisitCount() {
 }
 
 
-
+document.addEventListener('visibilitychange', () => {
+	if (document.visibilityState === 'hidden') {
+		saveToLocalStorage();
+	}
+});
 
 // Event Listeners
 
@@ -233,3 +243,4 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 );
 window.addEventListener("click", closeModalOnClickOutside);
+
